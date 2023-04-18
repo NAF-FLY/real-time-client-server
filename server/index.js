@@ -16,11 +16,16 @@ app.get('api', (req, res) => {
 	})
 })
 
+const users = []
+
 webSocket.on('connection', socket => {
 	console.log(`${socket.id} user connected`)
 	socket.on('message', data => {
-		socket.emit('response', data)
-		console.log(data)
+		webSocket.emit('response', data)
+	})
+	socket.on('newUser', data => {
+		users.push(data)
+		webSocket.emit('responseNewUser', users)
 	})
 	socket.on('disconnect', () => {
 		console.log(`${socket.id} disconnect`)

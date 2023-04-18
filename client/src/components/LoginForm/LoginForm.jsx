@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styles from './LoginForm.module.css'
 
-const LoginForm = () => {
+const LoginForm = ({socket}) => {
 	const navigate = useNavigate()
 	const [user, setUser] = useState('')
 	const [form] = Form.useForm()
@@ -15,8 +15,9 @@ const LoginForm = () => {
 	useEffect(() => {
 		forceUpdate({})
 	}, [])
-	const onFinish = values => {
+	const onFinish = () => {
 		localStorage.setItem('user', user)
+		socket.emit('newUser', {user, socketID: socket.id})
 		navigate('/chat')
 	}
 	return (

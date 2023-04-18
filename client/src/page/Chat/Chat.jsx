@@ -7,27 +7,29 @@ import Body from '../../components/Body/Body'
 import Message from '../../components/Message/Message'
 const { Content, Sider } = Layout
 
-const items1 = ['1'].map(key => ({
-	key,
-	label: `nav ${key}`,
-}))
-const items2 = [UserOutlined].map((icon, index) => {
-	const key = String(index + 1)
-	return {
-		key: `sub${key}`,
-		icon: createElement(icon),
-		label: `subnav ${key}`,
-		children: new Array(4).fill(null).map((_, j) => {
-			const subKey = index * 4 + j + 1
-			return {
-				key: subKey,
-				label: `option${subKey}`,
-			}
-		}),
-	}
-})
-
 const Chat = ({ socket }) => {
+	const [users, setUsers] = useState([])
+
+	useEffect(() => {
+		socket.on('responseNewUser', data => setUsers(data))
+	}, [socket, users])
+
+	const items2 = [UserOutlined].map((icon, index) => {
+		const key = String(index + 1)
+		return {
+			key: `sub${key}`,
+			icon: createElement(icon),
+			label: `Комната №${key}`,
+			children: users.map((el, j) => {
+				const subKey = index * 4 + j + 1
+				return {
+					key: subKey,
+					label: el.user,
+				}
+			}),
+		}
+	})
+
 	const [messages, setMessages] = useState([])
 	const navigate = useNavigate()
 	const handleLeave = () => {
@@ -83,7 +85,7 @@ const Chat = ({ socket }) => {
 						justifyContent: 'space-between',
 					}}
 				>
-					<Body messages={messages}/>
+					<Body messages={messages} />
 					<Message socket={socket} />
 				</Content>
 			</Layout>

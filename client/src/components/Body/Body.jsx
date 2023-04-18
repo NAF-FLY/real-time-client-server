@@ -1,7 +1,6 @@
 import styles from './Body.module.css'
 
 const Body = ({ messages }) => {
-	console.log(messages)
 	return (
 		<div className={styles.container}>
 			{messages.map(el =>
