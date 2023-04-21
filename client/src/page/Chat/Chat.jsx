@@ -9,6 +9,7 @@ const { Content, Sider } = Layout
 
 const Chat = ({ socket }) => {
 	const [users, setUsers] = useState([])
+	const [status, setStatus] = useState('')
 
 	useEffect(() => {
 		socket.on('responseNewUser', data => setUsers(data))
@@ -40,6 +41,13 @@ const Chat = ({ socket }) => {
 	useEffect(() => {
 		socket.on('response', data => setMessages([...messages, data]))
 	}, [socket, messages])
+
+	useEffect(() => {
+		socket.on('responseTyping', data => {
+			setStatus(data)
+			setTimeout(() => setStatus(''), 1000)
+		})
+	}, [socket])
 
 	const {
 		token: { colorBgContainer },
@@ -85,7 +93,7 @@ const Chat = ({ socket }) => {
 						justifyContent: 'space-between',
 					}}
 				>
-					<Body messages={messages} />
+					<Body messages={messages} status={status} />
 					<Message socket={socket} />
 				</Content>
 			</Layout>

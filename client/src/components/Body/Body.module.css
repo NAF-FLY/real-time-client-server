@@ -51,3 +51,9 @@
 	margin-left: auto;
 	font-size: 15px;
 }
+
+.status {
+	position: fixed;
+	font-size: 13px;
+	bottom: 110px;
+}

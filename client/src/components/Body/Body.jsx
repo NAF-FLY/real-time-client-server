@@ -1,6 +1,6 @@
 import styles from './Body.module.css'
 
-const Body = ({ messages }) => {
+const Body = ({ messages, status }) => {
 	return (
 		<div className={styles.container}>
 			{messages.map(el =>
@@ -20,6 +20,7 @@ const Body = ({ messages }) => {
 					</div>
 				)
 			)}
+			<div className={styles.status}><p>{status}</p></div>
 		</div>
 	)
 }

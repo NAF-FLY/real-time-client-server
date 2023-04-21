@@ -23,6 +23,7 @@ webSocket.on('connection', socket => {
 	socket.on('message', data => {
 		webSocket.emit('response', data)
 	})
+	socket.on('typing', (data) => socket.broadcast.emit('responseTyping', data))
 	socket.on('newUser', data => {
 		users.push(data)
 		webSocket.emit('responseNewUser', users)
