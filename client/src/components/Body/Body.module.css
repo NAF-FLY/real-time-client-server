@@ -31,13 +31,18 @@
 	font-size: 13px;
 }
 
+.recipientName {
+	margin-bottom: 5px;
+}
+
 .senderName {
+	margin-bottom: 5px;
 	text-align: right;
 }
 
 .messageRecipient {
 	background-color: #f9efec;
-	width: 300px;
+	max-width: 300px;
 	padding: 10px;
 	border-radius: 10px;
 	font-size: 15px;

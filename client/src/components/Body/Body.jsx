@@ -13,7 +13,7 @@ const Body = ({ messages, status }) => {
 					</div>
 				) : (
 					<div className={styles.chats} key={el.id}>
-						<p>{el.name}</p>
+						<p className={styles.recipientName}>{el.name}</p>
 						<div className={styles.messageRecipient}>
 							<p>{el.text}</p>
 						</div>
