@@ -1,26 +1,36 @@
 import { Route, Routes } from 'react-router-dom'
 import socketIO from 'socket.io-client'
 
-import Header from './components/Header/Top'
-import Home from './page/Home/Home'
-import Chat from './page/Chat/Chat'
-import Footer from './components/Footer/Bottom'
+import Chat from './pages/Chat/Chat'
+import Home from './pages/Home/Home'
 
-import { Layout } from 'antd'
-import './App.css'
+import Header from './components/Layout/Header'
+
+import { useState } from 'react'
+import './styles/App.css'
 
 const socket = socketIO.connect('http://localhost:5001')
 
 function App() {
+	const [users, setUsers] = useState([])
+	const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 	return (
-		<Layout className='layout'>
-			<Header />
+		<div className='h-screen flex flex-col justify-between'>
+			<Header
+				isSidebarOpen={isSidebarOpen}
+				setIsSidebarOpen={setIsSidebarOpen}
+			/>
 			<Routes>
-				<Route path='/' element={<Home socket={socket} />} />
-				<Route path='/chat' element={<Chat socket={socket} />} />
+				<Route
+					path='/'
+					element={<Home socket={socket} users={users} setUsers={setUsers} />}
+				/>
+				<Route
+					path='/chat'
+					element={<Chat socket={socket} isSidebarOpen={isSidebarOpen} />}
+				/>
 			</Routes>
-			<Footer />
-		</Layout>
+		</div>
 	)
 }
 

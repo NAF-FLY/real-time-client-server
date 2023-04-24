@@ -1,5 +1,4 @@
 .header {
-	/* height: 10vh; */
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
@@ -17,9 +16,10 @@
 }
 
 .container {
-	/* height: 80vh; */
+	height: 100%;
 	background-color: #ffffff;
 	padding: 20px;
+	border-radius: 0.5rem 0.5rem 0 0;
 	overflow-y: scroll;
 }
 

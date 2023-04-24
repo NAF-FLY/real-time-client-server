@@ -19,14 +19,22 @@ app.get('api', (req, res) => {
 const users = []
 
 webSocket.on('connection', socket => {
-	console.log(`${socket.id} user connected`)
+	// console.log(`${socket.id} user connected`)
 	socket.on('message', data => {
 		webSocket.emit('response', data)
 	})
-	socket.on('typing', (data) => socket.broadcast.emit('responseTyping', data))
+	socket.on('typing', data => socket.broadcast.emit('responseTyping', data))
 	socket.on('newUser', data => {
 		users.push(data)
 		webSocket.emit('responseNewUser', users)
+		console.log(users)
+	})
+	socket.on('leaveUser', data => {
+		const newUsers = users.filter(el => el.user != data.user)
+		users.length = 0
+		users.push(...newUsers)
+		webSocket.emit('responseLeaveUser', users)
+		console.log(`${socket.id} leaved this chat`)
 	})
 	socket.on('disconnect', () => {
 		console.log(`${socket.id} disconnect`)

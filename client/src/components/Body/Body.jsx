@@ -20,7 +20,9 @@ const Body = ({ messages, status }) => {
 					</div>
 				)
 			)}
-			<div className={styles.status}><p>{status}</p></div>
+			<div className={styles.status}>
+				<p>{status}</p>
+			</div>
 		</div>
 	)
 }

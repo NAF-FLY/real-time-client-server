@@ -8,3 +8,8 @@
 .main {
 	flex: 2;
 }
+
+.body {
+	padding: 4.5rem 0.5rem 4rem;
+	overflow-y: hidden;
+}
